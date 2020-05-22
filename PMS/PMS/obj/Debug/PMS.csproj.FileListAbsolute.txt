@@ -77,3 +77,7 @@ F:\Cmder\Software2\Software-2-Project\PMS\PMS\obj\Debug\PMS.csproj.CoreCompileIn
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\obj\Debug\PMS.csproj.CopyComplete
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\obj\Debug\PMS.dll
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\obj\Debug\PMS.pdb
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.dll
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.SqlServer.dll
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.xml
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.SqlServer.xml

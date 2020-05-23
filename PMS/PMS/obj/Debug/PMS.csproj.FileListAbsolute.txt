@@ -81,3 +81,9 @@ F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.dll
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.SqlServer.dll
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.xml
 F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\EntityFramework.SqlServer.xml
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Net.Http.Formatting.dll
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Web.Http.dll
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Web.Http.WebHost.dll
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Net.Http.Formatting.xml
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Web.Http.xml
+F:\Cmder\Software2\Software-2-Project\PMS\PMS\bin\System.Web.Http.WebHost.xml

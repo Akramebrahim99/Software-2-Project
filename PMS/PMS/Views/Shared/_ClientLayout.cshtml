@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/styles/AdminStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('i').click(function () {
+                $('ul').toggleClass('ul_show');
+                $('section').toggleClass('slide_image');
+            });
+            $('li').click(function () {
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+        });
+    </script>
+</head>
+<body>
+    <ul>
+        <li><p class="p">Client Page</p></li>
+        <li class="active"><a href="#">Profile</a></li>
+        <li class="active"><a href="#">Create Order</a></li>
+        <li class="active"><a href="#">Show Order</a></li>
+        <li class="active"><a href="#">Edit Order</a></li>
+        <li class="active"><a href="#">Edit Profile</a></li>
+        <li class="active"><a href="#">Logout</a></li>
+    </ul>
+    <section>
+        <i class="fas fa-bars"></i>
+        <div class="pop">
+            <br /><br />
+            @RenderBody()
+        </div>
+    </section>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

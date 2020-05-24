@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PMS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,12 @@ namespace PMS.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult HomePage()
+        private Pharmacy db = new Pharmacy();
+
+        public ActionResult AllClient()
         {
-            return View();
+            return View(db.Clients.ToList());
         }
+
     }
 }

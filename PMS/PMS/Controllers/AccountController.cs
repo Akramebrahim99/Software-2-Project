@@ -20,7 +20,7 @@ namespace PMS.Controllers
         {
             if (admin.Admin_Name == "Admin" && admin.Password == "Admin")
             {
-                return RedirectToAction("HomePage", "Admin");
+                return RedirectToAction("AllClient", "Admin");
             }
             ViewBag.Error = "*Invalid User Name Or Password";
             return View(admin);

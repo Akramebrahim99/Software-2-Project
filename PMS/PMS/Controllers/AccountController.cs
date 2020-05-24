@@ -25,5 +25,11 @@ namespace PMS.Controllers
             ViewBag.Error = "*Invalid User Name Or Password";
             return View(admin);
         }
+
+        public ActionResult Logout()
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
     }
 }

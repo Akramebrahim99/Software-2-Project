@@ -1,0 +1,40 @@
+﻿@model PMS.Models.Admin
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<h1>Pharmacy Login Form </h1>
+<div class="clear-loading spinner">
+    <span></span>
+</div>
+<div class="w3ls-login box box--big">
+    <!-- form starts here -->
+    <form action="@Url.Action("Login","Account")" method="post">
+        <div class="agile-field-txt">
+            <label><i class="fa fa-user" aria-hidden="true"></i> Username </label>
+            @Html.EditorFor(model => model.Admin_Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter User Name", @required = "" } })
+        </div>
+        <div class="agile-field-txt">
+            <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> password </label>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", @required = "", @type = "password", @id = "myInput" } })
+            <div class="agile_label">
+                @ViewBag.Error
+            </div>
+
+            <div class="agile-right">
+                <a href="#">Sign Up</a>
+            </div>
+        </div>
+        <input type="submit" value="LOGIN">
+    </form>
+</div>
+<!-- //form ends here -->
+<!--copyright-->
+<div class="copy-wthree">
+    <p>
+        © 2018 Spin Login Form . All Rights Reserved | Design by
+        <a href="http://w3layouts.com/" target="_blank">W3layouts</a>
+    </p>
+</div>
+<!--//copyright-->

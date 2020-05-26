@@ -22,6 +22,20 @@ namespace PMS.Controllers
             {
                 return RedirectToAction("AllClient", "Admin");
             }
+            else
+            {
+                var client1 = (from ClientList in db.Clients
+                               where ClientList.User_Name == admin.Admin_Name && ClientList.Password == admin.Password
+                               select new
+                               {
+                                   ClientList.User_Name,
+                                   ClientList.Id
+                               });
+                if (client1.FirstOrDefault() != null)
+                {
+                    return RedirectToAction("HomePage", "Client", new { id = client1.FirstOrDefault().Id });
+                }
+            }
             ViewBag.Error = "*Invalid User Name Or Password";
             return View(admin);
         }

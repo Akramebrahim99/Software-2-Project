@@ -245,6 +245,7 @@
     <Content Include="Views\Admin\AllClient.cshtml" />
     <Content Include="Views\Shared\_SignUpLayout.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Client\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -225,6 +225,7 @@
     <Content Include="styles\AdminStyle.css" />
     <Content Include="styles\font-awesome.css" />
     <Content Include="styles\style.css" />
+    <Content Include="styles\style1.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -242,6 +243,8 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\AllClient.cshtml" />
+    <Content Include="Views\Shared\_SignUpLayout.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

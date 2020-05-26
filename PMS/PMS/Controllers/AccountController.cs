@@ -31,5 +31,40 @@ namespace PMS.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(Client client)
+        {
+            String username = client.User_Name.ToString();
+            var client1 = (from ClientList in db.Clients
+                           where ClientList.User_Name == client.User_Name
+                           select new
+                           {
+                               ClientList.User_Name
+                           });
+
+
+            if (client1.FirstOrDefault() == null && client.User_Name != "Admin")
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Clients.Add(client);
+                    db.SaveChanges();
+                    return RedirectToAction("Login");
+                }
+            }
+            else
+            {
+                ViewBag.error = "*invalid UserName";
+            }
+            return View(client);
+
+        }
+
     }
 }

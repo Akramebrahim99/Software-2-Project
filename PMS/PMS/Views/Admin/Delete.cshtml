@@ -1,0 +1,77 @@
+﻿@model PMS.Models.item
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-center">Delete Product</h2>
+
+
+<h3>Are you sure you want to delete this Product?</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Yes" class="btn btn-default" style="background-color:limegreen;width:150px;margin-top:1%;font-weight:600;" />
+        <button type="button" onclick="location.href='@Url.Action("AllProduct", "Admin")'" class="btn btn-default " style="background-color:red;width:150px;margin-top:1%;font-weight:600;">No</button>
+    </div>
+}
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Expiration_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expiration_Date)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Quentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quentity)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Image)" width="250" height="250" />
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <br />
+    </dl>
+
+
+</div>
+

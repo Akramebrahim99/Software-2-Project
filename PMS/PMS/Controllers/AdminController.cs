@@ -131,5 +131,36 @@ namespace PMS.Controllers
             return View(item);
         }
         /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// Delete Product   //////////////////////////////////
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            item item = db.items.Find(id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            item item = db.items.Find(id);
+            String currentImg = Request.MapPath(item.Image);
+            db.items.Remove(item);
+            db.SaveChanges();
+            if (System.IO.File.Exists(currentImg))
+            {
+                System.IO.File.Delete(currentImg);
+            }
+            return RedirectToAction("AllProduct");
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
     }
 }

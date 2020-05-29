@@ -25,8 +25,8 @@
     <ul>
         <li><p class="p">Admin Page</p></li>
         <li class="active"><a href="@Url.Action("AllClient","Admin")">All Client</a></li>
-        <li class="active"><a href="#">All Product</a></li>
-        <li class="active"><a href="#">Add product</a></li>
+        <li class="active"><a href="@Url.Action("AllProduct","Admin")">All Product</a></li>
+        <li class="active"><a href="@Url.Action("AddProduct","Admin")">Add product</a></li>
         <li class="active"><a href="#">Create Order</a></li>
         <li class="active"><a href="#">Edit Order</a></li>
         <li class="active"><a href="#">Confirming Receipt</a></li>
@@ -42,5 +42,9 @@
     </section>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

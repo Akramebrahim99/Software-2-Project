@@ -41,5 +41,9 @@
     </section>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

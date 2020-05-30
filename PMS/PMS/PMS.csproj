@@ -197,8 +197,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Pharmacy.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Pharmacy.Context.cs</LastGenOutput>
       <DependentUpon>Pharmacy.edmx</DependentUpon>
+      <LastGenOutput>Pharmacy.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Pharmacy.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -209,13 +209,6 @@
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Pharmacy.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Pharmacy.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Pharmacy.edmx.diagram">
-      <DependentUpon>Pharmacy.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -225,6 +218,13 @@
     <Content Include="Content\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <EntityDeploy Include="Models\Pharmacy.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Pharmacy.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Pharmacy.edmx.diagram">
+      <DependentUpon>Pharmacy.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -351,6 +351,7 @@
     <Content Include="Views\Admin\AllProduct.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />

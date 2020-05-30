@@ -28,8 +28,8 @@
     <Property Name="Expiration_Date" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Quentity" Type="Int32" Nullable="false" />
     <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Discount" Type="Int32" />
-    <NavigationProperty Name="Orders" Relationship="Self.Item_Order" FromRole="item" ToRole="Order" />
+    <Property Name="Discount" Type="Double" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ToTable_1" FromRole="item" ToRole="Order" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -38,8 +38,10 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Total_Price" Type="Double" Nullable="false" />
     <Property Name="Client_id" Type="Int32" Nullable="false" />
+    <Property Name="Quentity" Type="Int32" Nullable="false" />
+    <Property Name="Item_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Client" Relationship="Self.FK_Order_ToTable" FromRole="Order" ToRole="Client" />
-    <NavigationProperty Name="items" Relationship="Self.Item_Order" FromRole="Order" ToRole="item" />
+    <NavigationProperty Name="item" Relationship="Self.FK_Order_ToTable_1" FromRole="Order" ToRole="item" />
   </EntityType>
   <Association Name="FK_Order_ToTable">
     <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -53,11 +55,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Item_Order">
-    <End Role="item" Type="Self.item" Multiplicity="*" />
+  <Association Name="FK_Order_ToTable_1">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Item_id" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Pharmacy" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="PharmacyEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Admins" EntityType="Self.Admin" />
     <EntitySet Name="Clients" EntityType="Self.Client" />
     <EntitySet Name="items" EntityType="Self.item" />
@@ -66,7 +76,7 @@
       <End Role="Client" EntitySet="Clients" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="Item_Order" Association="Self.Item_Order">
+    <AssociationSet Name="FK_Order_ToTable_1" Association="Self.FK_Order_ToTable_1">
       <End Role="item" EntitySet="items" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>

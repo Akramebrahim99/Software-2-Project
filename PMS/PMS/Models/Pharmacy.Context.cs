@@ -13,10 +13,10 @@ namespace PMS.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Pharmacy : DbContext
+    public partial class PharmacyEntities : DbContext
     {
-        public Pharmacy()
-            : base("name=Pharmacy")
+        public PharmacyEntities()
+            : base("name=PharmacyEntities")
         {
         }
     

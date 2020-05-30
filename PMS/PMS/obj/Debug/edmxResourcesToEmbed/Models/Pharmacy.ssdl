@@ -27,15 +27,7 @@
     <Property Name="Expiration_Date" Type="date" Nullable="false" />
     <Property Name="Quentity" Type="int" Nullable="false" />
     <Property Name="Image" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Discount" Type="int" />
-  </EntityType>
-  <EntityType Name="Item_Order">
-    <Key>
-      <PropertyRef Name="Item Id" />
-      <PropertyRef Name="Order Id" />
-    </Key>
-    <Property Name="Item Id" Type="int" Nullable="false" />
-    <Property Name="Order Id" Type="int" Nullable="false" />
+    <Property Name="Discount" Type="float" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -44,31 +36,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Total Price" Type="float" Nullable="false" />
     <Property Name="Client id" Type="int" Nullable="false" />
+    <Property Name="Quentity" Type="int" Nullable="false" />
+    <Property Name="Item id" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Item_Order_ToTable">
-    <End Role="item" Type="Self.item" Multiplicity="1" />
-    <End Role="Item_Order" Type="Self.Item_Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="item">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Item_Order">
-        <PropertyRef Name="Item Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Item_Order_ToTable_1">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
-    <End Role="Item_Order" Type="Self.Item_Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Item_Order">
-        <PropertyRef Name="Order Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Order_ToTable">
     <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -81,22 +51,29 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Order_ToTable_1">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Item id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="PharmacyModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="item" EntityType="Self.item" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Item_Order" EntityType="Self.Item_Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Item_Order_ToTable" Association="Self.FK_Item_Order_ToTable">
-      <End Role="item" EntitySet="item" />
-      <End Role="Item_Order" EntitySet="Item_Order" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Item_Order_ToTable_1" Association="Self.FK_Item_Order_ToTable_1">
-      <End Role="Order" EntitySet="Order" />
-      <End Role="Item_Order" EntitySet="Item_Order" />
-    </AssociationSet>
     <AssociationSet Name="FK_Order_ToTable" Association="Self.FK_Order_ToTable">
       <End Role="Client" EntitySet="Client" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ToTable_1" Association="Self.FK_Order_ToTable_1">
+      <End Role="item" EntitySet="item" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
   </EntityContainer>

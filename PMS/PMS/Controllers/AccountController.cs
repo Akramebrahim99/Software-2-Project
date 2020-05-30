@@ -9,7 +9,7 @@ namespace PMS.Controllers
 {
     public class AccountController : Controller
     {
-        private Pharmacy db = new Pharmacy();
+        private PharmacyEntities db = new PharmacyEntities();
         public ActionResult Login()
         {
             return View();

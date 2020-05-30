@@ -11,9 +11,7 @@ namespace PMS.Controllers
 {
     public class ClientController : Controller
     {
-        private Pharmacy db = new Pharmacy();
-        int? x = 2;
-
+        private PharmacyEntities db = new PharmacyEntities();
         public ActionResult HomePage(int? id)
         {
             if (id == null)

@@ -234,7 +234,7 @@ namespace PMS.Controllers
         }
         /////////////////////////////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////// Edit Product  //////////////////////////////////
+        ////////////////////////////////////// Edit Order  //////////////////////////////////
         public ActionResult EditOrder(int? id)
         {
             if (id == null)
@@ -326,6 +326,59 @@ namespace PMS.Controllers
         }
         /////////////////////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////// All Order  //////////////////////////////////
+        public ActionResult AllForConfirm()
+        {
+            var orders = db.Orders.Include(o => o.Client).Include(o => o.item);
+            return View(orders.ToList());
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// Confirm Order  //////////////////////////////////
+        public ActionResult ConfirmingReceipt(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            db.Orders.Remove(order);
+            db.SaveChanges();
+            return RedirectToAction("AllForConfirm");
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////// All Order  //////////////////////////////////
+        public ActionResult AllForCancel()
+        {
+            var orders = db.Orders.Include(o => o.Client).Include(o => o.item);
+            return View(orders.ToList());
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// Confirm Order  //////////////////////////////////
+        public ActionResult CancelOrder(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            var item = db.items.Find(order.Item_id);
+            item.Quentity = item.Quentity + order.Quentity;
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            db.Orders.Remove(order);
+            db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("AllForCancel");
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
 
     }
 }

@@ -359,6 +359,8 @@
     <Content Include="Views\Client\CreateOrder.cshtml" />
     <Content Include="Views\Client\AllForEdit.cshtml" />
     <Content Include="Views\Client\EditOrder.cshtml" />
+    <Content Include="Views\Client\AllForCancel.cshtml" />
+    <Content Include="Views\Client\Allorder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />

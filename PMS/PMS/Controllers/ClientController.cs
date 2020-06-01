@@ -175,6 +175,7 @@ namespace PMS.Controllers
         public ActionResult EditOrder(Order order)
         {
             order.Client_id = (int)Session["BranchId"];
+            var item1 = db.items.Find((int)Session["olditem"]);
             var item = db.items.Find(order.Item_id);
             var ordercheck = (from OrderList in db.Orders
                               where OrderList.Item_id == order.Item_id && OrderList.Client_id == order.Client_id && OrderList.Quentity == order.Quentity
@@ -196,7 +197,16 @@ namespace PMS.Controllers
                                    });
                 if (ordercheck2.FirstOrDefault() == null || (ordercheck2.FirstOrDefault().Item_id == (int)Session["olditem"] && ordercheck2.FirstOrDefault().Client_id == (int)Session["oldclient"]))
                 {
-                    item.Quentity = item.Quentity + (int)Session["Quentity"];
+                    if (item.Id == (int)Session["olditem"])
+                    {
+                        item.Quentity = item.Quentity + (int)Session["Quentity"];
+                    }
+                    else
+                    {
+                        item1.Quentity = item1.Quentity + (int)Session["Quentity"];
+                        db.Entry(item1).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
 
                     if (item.Quentity >= order.Quentity)
                     {
@@ -241,6 +251,46 @@ namespace PMS.Controllers
                 ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
                 return View(order);
             }
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+        
+        ////////////////////////////////////// All Order  //////////////////////////////////
+        public ActionResult AllForCancel()
+        {
+            int id = (int)Session["BranchId"];
+            var order = db.Orders.Where(o => o.Client.Id == id);
+            return View(order.ToList());
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// Confirm Order  //////////////////////////////////
+        public ActionResult CancelOrder(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            order.Client_id = (int)Session["BranchId"];
+            var item = db.items.Find(order.Item_id);
+            item.Quentity = item.Quentity + order.Quentity;
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            db.Orders.Remove(order);
+            db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("AllForCancel");
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// All Order  //////////////////////////////////
+        public ActionResult Allorder()
+        {
+            int id = (int)Session["BranchId"];
+            var order = db.Orders.Where(o => o.Client.Id == id);
+            return View(order.ToList());
         }
         /////////////////////////////////////////////////////////////////////////////////////////
     }

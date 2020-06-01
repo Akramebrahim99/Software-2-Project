@@ -258,6 +258,7 @@ namespace PMS.Controllers
         public ActionResult EditOrder(Order order)
         {
             var item = db.items.Find(order.Item_id);
+            var item1 = db.items.Find((int)Session["olditem"]);
             var ordercheck = (from OrderList in db.Orders
                               where OrderList.Item_id == order.Item_id && OrderList.Client_id == order.Client_id && OrderList.Quentity == order.Quentity
                               select new
@@ -278,7 +279,16 @@ namespace PMS.Controllers
                                   });
                 if (ordercheck2.FirstOrDefault() == null || (ordercheck2.FirstOrDefault().Item_id == (int)Session["olditem"] && ordercheck2.FirstOrDefault().Client_id == (int)Session["oldclient"]))
                 {
-                    item.Quentity = item.Quentity + (int)Session["Quentity"];
+                    if (item.Id == (int)Session["olditem"])
+                    {
+                        item.Quentity = item.Quentity + (int)Session["Quentity"];
+                    }
+                    else 
+                    {
+                        item1.Quentity = item1.Quentity + (int)Session["Quentity"];
+                        db.Entry(item1).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
 
                     if (item.Quentity >= order.Quentity)
                     {

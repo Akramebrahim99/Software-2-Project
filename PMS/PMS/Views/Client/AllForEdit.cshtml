@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PMS.Models.Order>
+@{
+    ViewBag.Title = "AllForEdit";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+}
+
+<h2 class="text-center">All Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.User_Name)
+        </th>
+        <th>
+            <label>Item_Name</label>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.item.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.item.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.item.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total_Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.User_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Quentity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item.Discount)
+            </td>
+            <td>
+                <img src="@Url.Content(item.item.Image)" width="50" height="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total_Price)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("EditOrder", "Client", new { id = item.Id })'" class="btn btn-default " style="background-color:greenyellow;width:150px;margin-top:1%;font-weight:600;">Edit</button>
+            </td>
+        </tr>
+    }
+
+</table>

@@ -120,14 +120,12 @@ namespace PMS.Controllers
                         db.SaveChanges();
                         return RedirectToAction("MyProfile");
                     }
-                    ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
                     ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
                     return View(order);
                 }
                 else
                 {
                     ViewBag.Error = "Max Quentity = " + item.Quentity.ToString();
-                    ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
                     ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
                     return View(order);
                 }
@@ -136,7 +134,6 @@ namespace PMS.Controllers
             else
             {
                 ViewBag.msg = "This client has this product in his order";
-                ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
                 ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
                 return View(order);
             }
@@ -145,5 +142,106 @@ namespace PMS.Controllers
         }
         /////////////////////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////// All Order  //////////////////////////////////
+        public ActionResult AllForEdit()
+        {
+            int id = (int)Session["BranchId"];
+            var order = db.Orders.Where(o => o.Client.Id == id);
+            return View(order.ToList());
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////// Edit Order  //////////////////////////////////
+        public ActionResult EditOrder(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            Session["Quentity"] = order.Quentity;
+            Session["olditem"] = order.Item_id;
+            Session["oldclient"] = order.Client_id;
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
+            ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
+            return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult EditOrder(Order order)
+        {
+            order.Client_id = (int)Session["BranchId"];
+            var item = db.items.Find(order.Item_id);
+            var ordercheck = (from OrderList in db.Orders
+                              where OrderList.Item_id == order.Item_id && OrderList.Client_id == order.Client_id && OrderList.Quentity == order.Quentity
+                              select new
+                              {
+                                  OrderList.Id
+                              });
+
+
+            if (ordercheck.FirstOrDefault() == null)
+            {
+                var ordercheck2 = (from OrderList in db.Orders
+                                   where OrderList.Item_id == order.Item_id && OrderList.Client_id == order.Client_id
+                                   select new
+                                   {
+                                       OrderList.Item_id,
+                                       OrderList.Client_id,
+                                       OrderList.Id
+                                   });
+                if (ordercheck2.FirstOrDefault() == null || (ordercheck2.FirstOrDefault().Item_id == (int)Session["olditem"] && ordercheck2.FirstOrDefault().Client_id == (int)Session["oldclient"]))
+                {
+                    item.Quentity = item.Quentity + (int)Session["Quentity"];
+
+                    if (item.Quentity >= order.Quentity)
+                    {
+                        if (item.Discount.Equals(null))
+                        {
+                            order.Total_Price = item.Price * order.Quentity;
+                        }
+                        else
+                            order.Total_Price = (item.Price * order.Quentity) - ((double)item.Discount * order.Quentity);
+                        item.Quentity = item.Quentity - order.Quentity;
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(item).State = EntityState.Modified;
+                            db.Entry(order).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("AllForEdit");
+                        }
+                        ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
+                        ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
+                        return View(order);
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Max Quentity = " + item.Quentity.ToString();
+                        ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
+                        ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
+                        return View(order);
+                    }
+                }
+                else
+                {
+                    ViewBag.msg = "This client has this product in his order";
+                    ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
+                    ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
+                    return View(order);
+                }
+            }
+            else
+            {
+                ViewBag.msg = "No thing to change";
+                ViewBag.Client_id = new SelectList(db.Clients, "Id", "Name", order.Client_id);
+                ViewBag.Item_id = new SelectList(db.items, "Id", "Name", order.Item_id);
+                return View(order);
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
     }
 }
